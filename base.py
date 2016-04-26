@@ -359,21 +359,21 @@ dict_area = {'安徽省': 0,
 # writer = csv.writer(csvfile)
 
 # list =[][]
-# df = pd.DataFrame()
-#
-#
-# with open('C:/Users/Alance/PycharmProjects/Python/1.csv') as f:
-#     reader = csv.reader(f)
-#     for line in reader:
-#         if line[0] in dict_area and dict_area.get(line[0]) <= 99:
-#             list.append(line)
-#             print(line)
-#             dict_area.
-#             dict_area(line[0]) = 1
-#             dict_area[line[0]] = dict_area[line[0]] + 1
-#             print(line)
-#             print(pd.DataFrame(line))
-#             df.append(pd.DataFrame(line))
+df = pd.DataFrame()
+
+
+with open('C:/Users/Alance/PycharmProjects/Python/1.csv') as f:
+    reader = csv.reader(f)
+    for line in reader:
+        if line[0] in dict_area and dict_area.get(line[0]) <= 99:
+            # list.append(line)
+            # print(line)
+            # dict_area.
+            # dict_area(line[0]) = 1
+            dict_area[line[0]] = dict_area[line[0]] + 1
+            print(line)
+            # print(pd.DataFrame(line))
+            # df.append(pd.DataFrame(line))
             # print(df)
 # print(df)
 
