@@ -8,6 +8,7 @@ import pandas as pd
 # print(s.values)
 # print(s.index)
 # print(s[['a','e']])
+<<<<<<< HEAD
 
 # pd1 = pd.DataFrame(np.random.randn(5,5),columns = ['year','state','pop','debt','haha'],index = ['one','two','three','four','five'])
 
@@ -30,3 +31,11 @@ print(df1)
 print(df2)
 print(df1+df2)
 print(df1.add(df2,fill_value = 0))
+=======
+#
+# pd1 = pd.DataFrame(np.random.randn(5,5),columns = ['year','state','pop','debt','haha'],index = ['one','two','three','four','five'])
+#
+# print(pd1.year)
+# pd1.state = np.arange(5)
+# print(pd1)
+>>>>>>> dev
