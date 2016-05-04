@@ -428,23 +428,24 @@ import time
 #     csvfile.close()
 #
 
-
+import pandas as pd
+import time
 # #######################################split the file as special size#######################
-# print('Plase insure your file directory is C: and rename your file name as data.csv\n')
-# line_num = int(input("Please input the each size of the file:"))
-# try:
-#     df = pd.read_csv('D:/data.csv',sep=",")
-#     # print(df.head(10))
-#     print('the base info about the file as follows\n')
-#     print(df.describe())
-#
-#     # df.columns = ['手机号码', '客户号', '快捷绑卡']
-#     print('%d line data has been loaded' %(df.shape[0]))
-#     for i in range(df.shape[0]//line_num+1):
-#         df[i*line_num:i*line_num+line_num-1].to_csv('D:/data%d.csv' %i)
-#     print('Job done!')
-#     time.sleep(10)
-# except IOError:
-#     print('Your file is not in the right location or your file name is wrong')
+print('Plase insure your file directory is D: and rename your file name as data.csv\n')
+line_num = int(input("Please input the each size of the file:"))
+try:
+    df = pd.read_csv('D:/data.csv',sep=",")
+    # print(df.head(10))
+    print('the base info about the file as follows\n')
+    print(df.describe())
+
+    # df.columns = ['手机号码', '客户号', '快捷绑卡']
+    print('%d line data has been loaded' %(df.shape[0]))
+    for i in range(df.shape[0]//line_num+1):
+        df[i*line_num:i*line_num+line_num-1].to_csv('D:/data%d.csv' %i,index=False,header=False)#index后面可以控制不输出行、列索引
+    print('Job done!')
+    time.sleep(10)
+except IOError:
+    print('Your file is not in the right location or your file name is wrong')
 
 
