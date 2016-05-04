@@ -1,15 +1,6 @@
 # Coding by SunChuan in 2016/04/06
-import os
-import xlrd, xlwt
-import csv
-import pandas_base as pd
-from collections import Iterable
-from collections import Iterator
-from types import MethodType
-import pickle
-import json
-import re
-
+import pandas as pd
+import time
 # a.next()和next(a)的区别, line173是否解释了这个问题？
 # 所以是凡方法中带有__func__方法的，都可以通过func(a)的形式调用，而不需要使用a.func()的形式进行调用
 
@@ -436,10 +427,24 @@ import re
 #         i = i + 1
 #     csvfile.close()
 #
-df = pd.read_csv('C:/Users/Alance/PycharmProjects/Python/data.csv',sep=",")
-print(df.head(10))
-print(df.describe())
-df.columns = ['手机号码', '客户号', '快捷绑卡']
-print(df.columns)
-for i in range(26):
-    df[i*200000:i*200000+199999].to_csv('C:/Users/Alance/PycharmProjects/Python/data%d.csv' %i)
+
+
+# #######################################split the file as special size#######################
+# print('Plase insure your file directory is C: and rename your file name as data.csv\n')
+# line_num = int(input("Please input the each size of the file:"))
+# try:
+#     df = pd.read_csv('D:/data.csv',sep=",")
+#     # print(df.head(10))
+#     print('the base info about the file as follows\n')
+#     print(df.describe())
+#
+#     # df.columns = ['手机号码', '客户号', '快捷绑卡']
+#     print('%d line data has been loaded' %(df.shape[0]))
+#     for i in range(df.shape[0]//line_num+1):
+#         df[i*line_num:i*line_num+line_num-1].to_csv('D:/data%d.csv' %i)
+#     print('Job done!')
+#     time.sleep(10)
+# except IOError:
+#     print('Your file is not in the right location or your file name is wrong')
+
+
