@@ -168,13 +168,14 @@ import time
 # print(dir('str'))
 #
 #
-# # 类似__xxx__的属性和方法在Python中都是有特殊用途的，比如__len__方法返回长度。在Python中，如果你调用len()函数试图获取一个对象的长度，实际上，在len()函数内部，它自动去调用该对象的__len__()方法，所以，下面的代码是等价的：
-# # 我们自己写的类，如果也想用len(myObj)的话，就自己写一个__len__()方法：
+# 类似__xxx__的属性和方法在Python中都是有特殊用途的，比如__len__方法返回长度。在Python中，如果你调用len()函数试图获取一个对象的长度，实际上，在len()函数内部，它自动去调用该对象的__len__()方法，所以，下面的代码是等价的：
+# 我们自己写的类，如果也想用len(myObj)的话，就自己写一个__len__()方法：
+#即正常情况下都是通过对象调用方法，如果希望通过使用方法(对象)的形式进行调用，需要在内部定义def __len__(self):类似的方法
 # class MyDog(object):
 #     def __len__(self):
 #         return 100
 #     def len(self):
-#         return 200
+#         return 100
 # 注意hasattr,getattr,setattr的使用方法
 # dog = MyDog()
 # print(dog.__len__())
@@ -256,7 +257,7 @@ import time
 #     f.close()
 #########为了简便写法，上述可以写生###########
 #
-# with open('C:/Users/Alance/Desktop/需求/报表割接/二维码新脚本.sql', 'r') as f:
+# fwith open('C:/Users/Alance/Desktop/需求/报表割接/二维码新脚本.sql', 'r') as f:
 #     print(f.read())
 # #上述写法的好处是不需要f.close()来确保数据读完之后的关闭。
 
