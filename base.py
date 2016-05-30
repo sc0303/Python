@@ -95,7 +95,7 @@ import time
 #
 # ##########很常用的一种使用方式，列表生成式,注意列表生成器一定要中括号括起来###############################
 # print([x * x for x in range(1,10)])
-# print([x * x for x in range(1,10) if x % 2 ==0])
+# print([x * x for x in range(1,10) if x % 2 ==0])#注意list comprehension中可以添加过滤条件，日常使用频率非常的高
 # print([x + y for x in 'xyz' for y in 'abc'])
 #
 # ####################生成器####################
