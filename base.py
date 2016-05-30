@@ -257,7 +257,7 @@ import time
 #     f.close()
 #########为了简便写法，上述可以写生###########
 #
-# fwith open('C:/Users/Alance/Desktop/需求/报表割接/二维码新脚本.sql', 'r') as f:
+# with open('C:/Users/Alance/Desktop/需求/报表割接/二维码新脚本.sql', 'r') as f:
 #     print(f.read())
 # #上述写法的好处是不需要f.close()来确保数据读完之后的关闭。
 
