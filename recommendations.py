@@ -112,9 +112,7 @@ def getItemRec(data, itemSim, user):
     scores = {}
     totalSum = {}
 
-    for (key, value) in userData.items():
-        for()
-
+    pass
 
 
 
@@ -127,7 +125,7 @@ def getItemRec(data, itemSim, user):
 # print(myRank)
 # print(critics)
 # print(transform(critics))
-myItemSim = itemSim(critics,n = 10)
-print(myItemSim)
+# myItemSim = itemSim(critics,n = 10)
+# print(myItemSim)
 # c = 10
 # print("x = %s, y = %s" %(c, c))
