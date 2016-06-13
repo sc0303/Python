@@ -22,7 +22,7 @@ def getWordCounts(url):
 
 
 def getWords(html):
-    txt = re.compile(r'<[^>]+>').sub('', html)  #########正则表达式的含义为匹配<括号以内的内容>，其中
+    txt = re.compile(r'<[^>]+>').sub('', html)  #########正则表达式的含义为匹配<括号以内的内容>，其中^表示取反，也就是取<开头,>结尾的数据，中间的任何的>忽略、
     words = re.compile(r'[^A-Z^a-z]+').split(txt)  ############匹配单词的最常用表达式，需要注意的一点是split也是可以使用正则表达式的
     return ([word.lower() for word in words])
 

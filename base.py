@@ -182,6 +182,17 @@ import time
 # print(len(dog))
 # print(dog.len())
 
+# 需要非常注意的一点是，在类中如果定义变量如果不加self，表示是类的一个属性（可以通过“类名.变量名”的方式引用），加了表示是类的实例的一个属性（可以通过“实例名.变量名”的方式引用）。
+# 例子如下：
+# class test(object):
+#     val = 1
+#     def __init__(self):
+#         self.val = 2
+# myTest = test()
+# print(myTest.val)#访问self定义的实例的属性
+# print(test.val)#访问未使用self定义的类的局部变量
+# 这也是为什么__init__方法的第一个参数必须为self的原因，因为__init__参数中定义的都是方法的属性，而不是类的属性
+
 # class Student(object):
 #     pass
 #
