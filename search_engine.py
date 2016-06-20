@@ -51,11 +51,9 @@ class crawler:
                 except:
                     print("Can't open %s" %page)
                     continue
-                soup = BeautifulSoup(c.read())
+                soup = BeautifulSoup(c.read(), 'lxml')
                 self.add_index(page, soup)  #注意这里面调用了类的对象方法，使用self.add_index()而不是调用类的私有方法add_index()
-                print(soup)
                 links = soup('a')
-                print(links)
                 for link in links:
                     if('href' in dict(link.attrs)):
                         url = urljoin(page, link['href'])
@@ -78,7 +76,7 @@ class crawler:
 
 
 
-page_list = ['http://pandas.pydata.org/pandas-docs/stable/api.html']
+page_list = ['http://news.sina.com.cn/c/nd/2016-06-14/doc-ifxszmaa2015903.shtml']
 my_crawler = crawler('my_db')
 my_crawler.crawl(page_list)
 
