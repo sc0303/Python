@@ -43,11 +43,17 @@ def schedulecost(sol):
         # 得到往返航班
         # print(sol[i * 2])
         try:
-            out = flight[origin, destination][sol[i * 2]]
-            back = flight[origin, destination][sol[i * 2 + 1]]
+            out = flight[(origin, destination)][int(sol[i * 2])]
+            back = flight[(origin, destination)][int(sol[i * 2 + 1])]
         except:
-            print(sol[i * 2] +1)
-            print(len(flight[0]))
+            # with open('D:/DataMining/machinelearninginaction/PCI_Code Folder/chapter5/tmp.txt','w') as file:
+            #     file.write(str(flight))
+            print(flight)
+            print(sol)
+            print(origin)
+            print(destination)
+            print(i * 2 + 1)
+            print(sol[i * 2 + 1])
             print('hello')
 
         total_price += out[2] + back[2]
@@ -57,8 +63,17 @@ def schedulecost(sol):
 
     for i in range(int(len(sol) / 2)):
         origin = people[i][1]
-        out = flight[origin, destination][sol[i * 2]]
-        back = flight[origin, destination][sol[i * 2 + 1]]
+        try:
+            out = flight[(origin, destination)][int(sol[i * 2])]
+            back = flight[(origin, destination)][int(sol[i * 2 + 1])]
+        except:
+            print(sol)
+            print(i * 2 + 1)
+            print(sol[i * 2 + 1])
+            print(origin)
+            print(destination)
+            print('hello')
+
         total_wait = total_wait + last_arrivarl - get_minutes(out[1]) + get_minutes(back[0]) - earliest_dep
 
     if last_arrivarl > earliest_dep: total_price = total_price + 50
@@ -100,7 +115,7 @@ def hill_climb(random_num, costf):
     return random_input, best
 
 
-def annealing_optimize(domain, costf, T=1000, cool=0.95, step=1):
+def annealing_optimize(domain, costf, T=10, cool=0.95, step=1):
     vec_input = [random.randint(domain[i][0], domain[i][1]) for i in range(len(domain))]
 
     while T > 0.1:
@@ -150,7 +165,7 @@ def genetic_optimize(domain, cosf, popsize=50, step=1, mutprob=0.2, elite=0.2, m
     for i in range(maxtier):
         scores = [(cosf(s), s) for s in pop]
         scores.sort()
-        ranked = [value for (key, value) in scores]#####使用起来非常非常灵活，太赞了！！！！！！！！！！！！
+        ranked = [value for (key, value) in scores]  #####使用起来非常非常灵活，太赞了！！！！！！！！！！！！
         pop = ranked[0: top_elite]
 
         while len(pop) < popsize:
@@ -164,31 +179,35 @@ def genetic_optimize(domain, cosf, popsize=50, step=1, mutprob=0.2, elite=0.2, m
         print(scores[0][0])
     return scores[0][1]
 
+#
+# random_num = [(0, 9)] * len(people) * 2
+#
+# best_cost, best_r = random_optimize(random_num, schedulecost)
+# print(best_cost)
+# print_schedule(best_r)
+# print('###########################################################################################')
+#
+# random_input, best_cost = hill_climb(random_num, schedulecost)
+# print(random_input)
+# print_schedule(random_input)
+# print(best_cost)
+# print('###########################################################################################')
+#
+# vec_input = annealing_optimize(random_num, schedulecost)
+# print(vec_input)
+# print_schedule(vec_input)
+# print('###########################################################################################')
+#
+# vec_input_2 = genetic_optimize(random_num, schedulecost)
+# print(vec_input_2)
+# print_schedule(vec_input_2)
 
-random_num = [(0, 9)] * len(people) * 2
-
-best_cost, best_r = random_optimize(random_num, schedulecost)
-print(best_cost)
-print_schedule(best_r)
-print('###########################################################################################')
-
-random_input, best_cost = hill_climb(random_num, schedulecost)
-print(random_input)
-print_schedule(random_input)
-print(best_cost)
-print('###########################################################################################')
-
-vec_input = annealing_optimize(random_num, schedulecost)
-print(vec_input)
-print_schedule(vec_input)
-print('###########################################################################################')
-
-vec_input_2 = genetic_optimize(random_num, schedulecost)
-print(vec_input_2)
-print_schedule(vec_input_2)
+import xml.dom.minidom
 
 
-
+dom = xml.dom.minidom.parseString('<data><rec>hello!</rec></data>')
+print(dom)
+print(dom.getElementsByTagName('rec')[0].firstChild.data)
 
 
 # r = [1, 4, 3, 2, 7, 3, 6, 3, 2, 4, 5, 3]
