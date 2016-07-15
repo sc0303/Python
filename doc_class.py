@@ -5,6 +5,7 @@ import re
 def get_words(doc):
     splitter = re.compile('\W+')
     words = [s.lower() for s in splitter.split(doc.strip()) if len(s) > 2 and len(s) < 20]
+    print(dict([(w, 1) for w in words]))
     return dict([(w, 1) for w in words])
 
 
@@ -16,7 +17,7 @@ class Classifier:
         self.cc = {}
         self.get_feature = get_feature
 
-    # 增加对特征
+    # 增加对特征统计
     def inc_fc(self, f, cat):
         self.fc.setdefault(f, {})
         self.fc[f].setdefault(cat, 0)
@@ -36,7 +37,7 @@ class Classifier:
     # 属于某一分类项的内容项数量
     def cat_count(self, cat):
         if cat in self.cc:
-            return float(self.cc[count])
+            return float(self.cc[cat])
         return 0.0
 
     # 所有内容项的数量
@@ -52,14 +53,51 @@ class Classifier:
         features = self.get_feature(item)
         for i in features:
             self.inc_fc(i, cat)
+        # print(self.fc)
 
         self.in_cc(cat)
+        # print(self.cc)
+    def f_prob(self,f,cat):
+        if self.cat_count(cat)==0:return 0
+        return self.f_count(f,cat)/self.cat_count(cat)
+
+
+    def sample_train(self,input):
+        cl.training('Nobody owns the water.','good')
+        cl.training('the quick rabbit jumps fences','good')
+        cl.training('buy pharmaceuticals now','bad')
+        cl.training('make quick money at the online casino','bad')
+        cl.training('the quick brown fox jumps','good')
+
+    def weight_prob(self, f, cat, prf, weight = 1.0, ap = 0.5):
+        basic_prob = prf(f, cat)
+        totals = sum([self.f_count(f, c) for c in self.categories()])
+        bp = ((weight*ap + totals*basic_prob))/(weight+totals)
+        return bp
+
+
+
 
 
 cl = Classifier(get_words)
-cl.training('make quick money at the online casino', 'bad')
-cl.training('the quick brown fox jumps', 'good')
-print(cl.f_count('quick', 'good'))
-print(cl.f_count('quick', 'bad'))
+cl.sample_train(cl)
+# print(cl.cc)
+# print(cl.fc)
+# print(cl.f_prob('the', 'good'))
+# print(cl.weight_prob('money', 'good', cl.f_prob))
 
-print(get_words('Hello world Hello World'))
+# cl.training('make quick money at the online casino', 'bad')
+# cl.training('the quick brown fox jumps', 'good')
+# print(cl.f_count('make', 'good'))
+# print(cl.f_count('make', 'bad'))
+
+# dict_test = {}
+# dict_test.setdefault('quick', {})
+# print(dict_test)
+# dict_test['quick'].setdefault('bad', 0)
+# dict_test['quick'].setdefault('good', 0)
+# print(dict_test)
+# dict_test['quick']['bad'].setdefault('bad', 0)
+# print(dict_test)
+# dict_test['quick']['bad'].setdefault('bad',0)
+# print(dict_test)
