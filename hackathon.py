@@ -48,9 +48,15 @@ def update_rider_data():
 
 # find the most suitable rider
 def find_suitable_rider():
+    if rider_matrix.rider_id[0] == 0:
+        rider_matrix.rider_id[0] = 1
+        # order_num1 =
+        return 1
+        print(max(rider_matrix.rider_id))
+
     # time_dict_order[] =
     # time_dict_order = dict(sorted(time_dict.items(), key=lambda x: x[0]))
-    pass
+    return rider_id
 
 
 # update the order data
@@ -70,15 +76,17 @@ def calc_distance(lngx, latx, lngy, laty):
     dlat = (latx - laty) / 2
     dlon = (lngx - lngy) / 2
     a = math.sin(dlat * math.pi / 180) ** 2 + math.cos(latx * math.pi / 180) * math.cos(
-        laty * math.pi / 180) * math.sin(
+            laty * math.pi / 180) * math.sin(
             dlon * math.pi / 180) ** 2
-
     return 2 * math.asin(math.sqrt(a)) * 6378137
-    pass
 
 
-def calc_compensate_money():
-    pass
+def calc_compensate_money(t, promised_at):
+    a = (t - promised_at) / 60
+    if a < 0:
+        return 0
+    else:
+        return (math.ceil(math.log(a + 1) * a + 5))
 
 
 # calculate the cost
@@ -131,11 +139,10 @@ if __name__ == '__main__':
     # load the data
     df_order, df_restaurant = data_read('C:/Sample Input')
 
-    # create the matrix of the rider,len(df_order.index) means the number of the order
-    rider_matrix = pd.DataFrame(np.zeros((len(df_order.index), 6)),
+    # create the matrix of the rider,len(df_order.index) means the number of the order status = 1 means is busy, status = 0 means free
+    rider_matrix = pd.DataFrame(np.zeros((len(df_order.index), 8)),
                                 columns=['rider_id', 'rider_realtime_lng', 'rider_realtime_lat', 'redundancy_time',
-                                         'status', 'all_order_num'])
-
+                                         'status', 'all_order_num', 'order_num1', 'order_num2'])
     # transform the standard time to timestamp
     df_order.promised_at = df_order.promised_at.apply(lambda x: int(time_tansform(x)))
     df_order.created_at = df_order.created_at.apply(lambda x: int(time_tansform(x)))
@@ -150,6 +157,17 @@ if __name__ == '__main__':
 
     # create the time point dict,1 means created_at, 2 means promised_at, 3 means the food supply time, 4 means rider arrive the restaurant, 5 means rider arrive the user
     time_dict = {}
+
+    event_time_list = [[0, 0, 0]] * len(df_order.index) * 4
+    for x in range(0, len(df_order.index) * 2, 2):
+        event_time_list[x] = [df_order_sort.created_at[x / 2], df_order_sort.order_id[x / 2], 1]
+        event_time_list[x + 1] = [df_order_sort.promised_at[x / 2], df_order_sort.order_id[x / 2], 2]
+    print(event_time_list)
+
+    event_time_list_order = event_time_list.sort(key=lambda x: x[0])
+    print(event_time_list_order)
+    # event_time_list_order = list(sorted(event_time_list.items(), key=lambda x: x[0]))
+
     for x in df_order_sort.created_at:
         time_dict[x] = 1
 
@@ -184,7 +202,7 @@ if __name__ == '__main__':
 
     calculate_cost()
 
-
+    print(calc_compensate_money(300, 0))
 
 
     # simulate the event
